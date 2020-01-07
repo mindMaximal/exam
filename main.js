@@ -9714,14 +9714,19 @@ function highlight(obj)
     obj.style = "color : green;";
 }
 
+$input = document.getElementsByClassName("gLFyf");
+
+console.log($input);
+
+
+$input.oninput = function (elem) {
+    console.log(elem);
+    
+}
+
 function tips()
 {
-    var qsft = [].slice.call(document.getElementsByClassName("qtext"));
-    //console.log("На странице " + qsft.length + " вопросов");
-    //return;
-    for (var i=0; i<qsft.length; i++)
-    {
-        var qft = qsft[i];
+        var qft = "qsft[i]";
         //console.log("Text = " + qft.innerHTML);
         if (qft.innerHTML[0] != "<")
         {
@@ -9759,42 +9764,42 @@ function tips()
         console.log(qft.text + "\n");
 
         var qfb = findQuestionInBank(qft.text, i);
-        if (qfb==null)
-        {
-            //qft.innerHTML = qft.innerHTML + " (ответ не найден в базе)";
-            continue;
-        }
+        console.log(qfb);
         
-        //qft.innerHTML = qft.innerHTML + "(ответ найден в базе с оответствием " + Math.round(cmp*100.0) + "%)";
+        // if (qfb==null)
+        // {
+        //     //qft.innerHTML = qft.innerHTML + " (ответ не найден в базе)";
+        //     continue;
+        // }
         
-        answers = [].slice.call(qft.parentNode.getElementsByClassName("answer")[0].children);
-        for (var j=0; j<answers.length; j++)
-        {
-            answer = answers[j];
-            var label = answer.getElementsByTagName("label")[0];
-            var text = label.innerHTML;              
-            var text = text.substring(text.indexOf("</span>")+7);
-            //text = text.replace(/<\/?[^>]+>|.\.\s/g,'');
-            text.toLowerCase();
-            text = text.replace(/\%.*?\%|(\%)|\(.*?\)|\(|\)|\»|\«|\;|\.|\,\Z|\,$|br|&nbsp;|\“|\”|\•|\.$|\—/g, "")
-                        .replace(/\s\,/g, ",")
-                        .replace(/\s\;/g, ";")
-                        .replace(/\s\./g, ".")
-                        .replace(/\-|\s–\s|\s\s/g, " ")
-                        .replace(/\ё/g, "е");
-            console.log(" - " + text);
+        // //qft.innerHTML = qft.innerHTML + "(ответ найден в базе с оответствием " + Math.round(cmp*100.0) + "%)";
+        
+        // answers = [].slice.call(qft.parentNode.getElementsByClassName("answer")[0].children);
+        // for (var j=0; j<answers.length; j++)
+        // {
+        //     answer = answers[j];
+        //     var label = answer.getElementsByTagName("label")[0];
+        //     var text = label.innerHTML;              
+        //     var text = text.substring(text.indexOf("</span>")+7);
+        //     //text = text.replace(/<\/?[^>]+>|.\.\s/g,'');
+        //     text.toLowerCase();
+        //     text = text.replace(/\%.*?\%|(\%)|\(.*?\)|\(|\)|\»|\«|\;|\.|\,\Z|\,$|br|&nbsp;|\“|\”|\•|\.$|\—/g, "")
+        //                 .replace(/\s\,/g, ",")
+        //                 .replace(/\s\;/g, ";")
+        //                 .replace(/\s\./g, ".")
+        //                 .replace(/\-|\s–\s|\s\s/g, " ")
+        //                 .replace(/\ё/g, "е");
+        //     console.log(" - " + text);
             
-            var afqfb = findAnswerInQuestion(qfb, text);
-            if (afqfb===null)
-            {
-                continue;
-            }
-            if (afqfb)
-            {
-                label.innerHTML = "<span onmouseout=\"this.style = ''\" onMouseOver=\"this.style = 'color : green;'\";>" + label.innerHTML + "</span>";
-            }
-        }
-    }
+        //     var afqfb = findAnswerInQuestion(qfb, text);
+        //     if (afqfb===null)
+        //     {
+        //         continue;
+        //     }
+        //     if (afqfb)
+        //     {
+        //         label.innerHTML = "<span onmouseout=\"this.style = ''\" onMouseOver=\"this.style = 'color : green;'\";>" + label.innerHTML + "</span>";
+        //     }
 }
 
 function outAnswers() {
