@@ -9722,4 +9722,6 @@ document.querySelector('.cls').addEventListener('click', function (e) {
     e.preventDefault();
     $input.value = "";
     $input.focus();
+    
+    document.querySelector('.select__list').style.display = "none"; 
 });
