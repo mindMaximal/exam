@@ -9715,7 +9715,11 @@ $input.onkeypress = function (e) {
 
 document.querySelector('.logo__wrapper').addEventListener('click', function (e) {
     e.preventDefault();
-    console.log('test');
-    
     window.open('http://ntb.tgn.sfedu.ru/UML/UML_5397.pdf',  "_blank");
+});
+
+document.querySelector('.cls').addEventListener('click', function (e) {
+    e.preventDefault();
+    $input.value = "";
+    $input.focus();
 });
