@@ -1,5 +1,3 @@
-alert('test');
-
 var questionsBank = [
     {
         "type": "radio",
@@ -3585,28 +3583,6 @@ var questionsBank = [
             ],
             [
                 "Подсистема аудита безопасности",
-                false
-            ]
-        ]
-    },
-    {
-        "type": "radio",
-        "text": "Какой из сервисов общего назначения портала обеспечивает доступ к приложениям",
-        "answers": [
-            [
-                "сервисы обработки",
-                true
-            ],
-            [
-                "сервис однократной регистрации",
-                false
-            ],
-            [
-                "сервисы доступа к бизнес процессам",
-                false
-            ],
-            [
-                "сервис настройки и персонализации",
                 false
             ]
         ]
@@ -9478,211 +9454,130 @@ var questionsBank = [
     }
 ]
 
-function unique(array)
-{
-    var result = [];
-    for (var i=0; i<array.length; i++)
-    {
-        if ( result.indexOf(array[i])==-1 )
-        {
-            result.push(array[i]);
-        }
-    }
-    return result;
-}
-/*function compareText(a,b)
-{
-    a = a.toLowerCase();
-    b = b.toLowerCase();
-    
-    a = a.replace(/[.,\/#!?$%\^&\*;:{}=\-_`~()—«»•]/g,"").replace(/\s{2,}/g," ");
-    b = b.replace(/[.,\/#!?$%\^&\*;:{}=\-_`~()—«»•]/g,"").replace(/\s{2,}/g," ");
-    
-    var qfb_words = a.split(" ");
-    var qft_words = b.split(" ");
-    
-    var matching = 0;
-    
-    if (a == b)
-    {
-        return 1.0;
-    }
-    if (Math.max(qfb_words.length, qft_words.length)/Math.min(qfb_words.length, qft_words.length)>2)
-    {
-        return 0.0;
-    }
-    //console.log("Проверка на неполное соответствие");
-    qfb_words = unique(qfb_words);
-    qft_words = unique(qft_words);
-    var wordsMatching = 0;
-    var orderDifference = 0;
-    var prevDifference = 0;
-    for (var j=0; j<qft_words.length; j++)
-    {
-        var index = qfb_words.indexOf(qft_words[j]);
-        var difference = Math.abs(j-index);
-        wordsMatching += qfb_words.indexOf(qft_words[j])>-1;
-        orderDifference += Math.abs(difference-prevDifference);
-        prevDifference = difference;
-    }
-    matching = wordsMatching/(orderDifference+1);
-    //console.log("Найден вопрос с соответствием " + matching / qfb_words.length * 100 + "%");
-    //console.log("Разница порядка " + orderDifference);
-    //console.log("A: " + qfb_words);
-    //console.log("B: " + qft_words);
-    return matching / qfb_words.length;
-}*/
-
-function clearSigns(string)
-{
+function clearSigns(string) {
     string = string.toLowerCase();
-    while (string.indexOf("\n")>-1)
-    {
+
+    while (string.indexOf("\n")>-1) {
         string = string.replace("\n", "");
     }
+
     string = string.replace(/\<br\>/g, " ").replace(/\<li\>/g, " ").replace(/\<\/li\>/g, " ").replace(/\&nbsp\;/g, " ").replace(/[\"\'.,\/#!?$%\^&\*;:{}=\-_`~()—«»•\t\n]/g,"").replace(/\s{2,}/g," ");
-    while (string[string.length-1]==" ")
-    {
+    
+    while (string[string.length-1]==" ") {
         string = string.substring(0, string.length-1);
     }
-    while (string[0]==" ")
-    {
+
+    while (string[0]==" ") {
         string = string.substring(1);
     }
+
     return string;
 }
 
-function compareText(a, b)
-{
-    //var removeSymbols = "\u00A0\"\',.()[]{}!?&@#$%^&*№;:-=+—_\\|/`~«»•";
-    
+function compareText(a, b) {    
     a = a.toLowerCase();
     b = b.toLowerCase();
     
-    if (a==b)
-    {
+    if (a==b) {
         return 1;
     }
     
-    while (b.indexOf("\n")>-1)
-    {
+    while (b.indexOf("\n")>-1) {
         b = b.replace("\n", "");
     }
     
-    while (a.indexOf("\n")>-1)
-    {
+    while (a.indexOf("\n")>-1) {
         a = a.replace("\n", "");
     }
     
     var ass = a = clearSigns(a);
     var bss = b = clearSigns(b);
     
-    if (ass[ass.length-1]==" ")
-    {
+    if (ass[ass.length-1]==" ") {
         ass = a = ass.substring(0, ass.length-1);
     }
-    if (bss[bss.length-1]==" ")
-    {
+    
+    if (bss[bss.length-1]==" ") {
         bss = b = bss.substring(0, bss.length-1);
     }
     
-    if (a==b)
-    {
+    if (a==b) {
         return 1;
     }
     a = a.split(" ");
     b = b.split(" ");
     
-    if (a==b)
-    {
+    if (a==b) {
         return 1;
     }
     
-    if (Math.abs(a.length -b.length)/Math.max(a.length, b.length)>0.5)
-    {
+    if (Math.abs(a.length -b.length)/Math.max(a.length, b.length)>0.5) {
         return 0;
     }
     
     var matching = 0;
     var max = Math.max(a.length, b.length);
     
-    for (var i=0; i<max; i++)
-    {
+    for (var i=0; i<max; i++) {
         matching += a[i]==b[i];
     }
-    if (max>0 && matching>0)
-    {
+    if (max>0 && matching>0) {
         return matching/max;
     }
 }
 
 function sortByPercent(arr) {
     arr.sort((a, b) => a.percent > b.percent ? -1 : 1);
-  }
+}
 
 var cmp;
 var answersPossible = [];
 
-function findQuestionInBank(text, index)
-{
-    //console.log("№" + (index + 1) + " Поиск: " + clearSigns(text));
+function findQuestionInBank(text) {
+    answersPossible = [];
     var maximum = 0;
     var maximum_index = 0;
-    var tempArray = [];
     
-    for (var i=0; i<questionsBank.length; i++)
-    {
-        
-        if (text==questionsBank[i].text)
-        {
-            //console.log("Найден по полному соответствию " + questionsBank[i].text);
-        }
+    for (var i=0; i<questionsBank.length; i++) {         
         matching = compareText(text, questionsBank[i].text);
-        if (matching>0.0)
-        {
+        
+        if (matching>0.0) {
             var response = {
                 percent: Math.round(matching*100.0),
-                // text: "Вопрос №" + (index + 1),
+                text: questionsBank[i].text,
+                answers: questionsBank[i].answers,
                 index: i
             };
-            tempArray.push(response);
-            //console.log("\t" + Math.round(matching*100.0) + "% " + clearSigns(questionsBank[i].text.substring(0,128)));
+            answersPossible.push(response);
         }
-        if (matching > maximum)
-        {
+        
+        
+        if (matching > maximum) {
             maximum = matching;
             maximum_index = i
         }
     }
 
-    sortByPercent(tempArray);
-    // console.log(answersPossible);
-    answersPossible.push(tempArray);
-
-    if (maximum>0.5)
-    {
-        //console.log("Найден по неполному соответствию " + questionsBank[maximum_index].text);
+    sortByPercent(answersPossible);
+    
+    if (maximum>0.5) {
         cmp = maximum;
         return questionsBank[maximum_index];
-    }
-    else
-    {
-        //console.log("Вопрос не найден.");
+    } else {
         return null;
     }
 }
 
 function findAnswerInQuestion(question,atext)
 {
-    if (question == null)
-    {
+    if (question == null) {
         return null;
     }
+    
     var max = 0;
     var max_ind = 0;
     
-    for (var i=0; i<question.answers.length; i++)
-    {          
+    for (var i=0; i<question.answers.length; i++) {          
         if (question.answers[i][0].toLowerCase() == atext.toLowerCase())
         {
             return question.answers[i][1];
@@ -9694,174 +9589,133 @@ function findAnswerInQuestion(question,atext)
             max = p;
         }
     }
-    if (max>0.5)
-    {
+
+    if (max>0.5) {
         return question.answers[max_ind][1];
-    }
-    else
-    {
+    } else {
         return null;
     }
 }
 
-String.prototype.replaceAll = function(search, replacement) {
-    var target = this;
-    return target.replace(new RegExp(search, 'g'), replacement);
-};
+function outAnswersInInput (text) {
 
-function highlight(obj)
-{
-    obj.style = "color : green;";
-}
-
-$input = document.getElementsByClassName("gLFyf");
-
-console.log($input);
-
-
-$input.oninput = function (elem) {
-    console.log(elem);
+    text = text.replace(/\%.*?\%|(\%)|\»|\«|•\s|\&\;|\<|\>|br|&nbsp;|\“|\”|$|\_|\s$|\s\Z|\.$|\:|\;|\.\Z|\—/g, "")
+    .replace(/\.$|\.\Z/g, "")
+    .replace(/\s\,/g, ",")
+    .replace(/\s-\s|\-|\-\s|\n|\\|\//g, " ")
+    .replace(/\s\;/g, ";")
+    .replace(/\s\./g, ".")
+    .replace(/\s\s|\s\s\s|\s\s\s\s|\s\s\s\s\s/g, " ")
+    .replace(/\s\s|\s\s\s|\s\s\s\s|\s\s\s\s\s/g, " ");
     
-}
+    findQuestionInBank(text);
 
-function tips()
-{
-        var qft = "qsft[i]";
-        //console.log("Text = " + qft.innerHTML);
-        if (qft.innerHTML[0] != "<")
-        {
-            qft.text = qft.innerHTML;
-        }
-        else if (qft.innerHTML[0] = "<") {
-            qft.text = qft.innerHTML.replace(/<\/?[^>]+>/g,'');
-        }
-        else if (qft.children[0] == undefined)
-        {
-            qft.text = qft.innerHTML;
-        }
-        else
-        {
-            qft.text = "";
-            for (var c=0; c<qft.children.length; c++)
-            {
-                if (qft.children[c].innerHTML[0] != "<" && qft.children[c].innerHTML.indexOf("li")==-1)
-                {
-                    qft.text += qft.children[c].innerHTML;
-                }
-            }
-        }
-        //console.log("Text2 = " + qft.text);
-        
-        //console.log((i+1) + ") " + qft.text.substring(0, 32) + "...");
-        qft.text = qft.text.replace(/\%.*?\%|(\%)|\»|\«|•\s|\&\;|\<|\>|br|&nbsp;|\“|\”|$|\_|\s$|\s\Z|\.$|\:|\;|\.\Z|\—/g, "")
-                            .replace(/\.$|\.\Z/g, "")
-                            .replace(/\s\,/g, ",")
-                            .replace(/\s-\s|\-|\-\s|\n|\\|\//g, " ")
-                            .replace(/\s\;/g, ";")
-                            .replace(/\s\./g, ".")
-                            .replace(/\s\s|\s\s\s|\s\s\s\s|\s\s\s\s\s/g, " ")
-                            .replace(/\s\s|\s\s\s|\s\s\s\s|\s\s\s\s\s/g, " ");
-        console.log(qft.text + "\n");
+    words = text.split(' ');
+    
 
-        var qfb = findQuestionInBank(qft.text, i);
-        console.log(qfb);
-        
-        // if (qfb==null)
-        // {
-        //     //qft.innerHTML = qft.innerHTML + " (ответ не найден в базе)";
-        //     continue;
-        // }
-        
-        // //qft.innerHTML = qft.innerHTML + "(ответ найден в базе с оответствием " + Math.round(cmp*100.0) + "%)";
-        
-        // answers = [].slice.call(qft.parentNode.getElementsByClassName("answer")[0].children);
-        // for (var j=0; j<answers.length; j++)
-        // {
-        //     answer = answers[j];
-        //     var label = answer.getElementsByTagName("label")[0];
-        //     var text = label.innerHTML;              
-        //     var text = text.substring(text.indexOf("</span>")+7);
-        //     //text = text.replace(/<\/?[^>]+>|.\.\s/g,'');
-        //     text.toLowerCase();
-        //     text = text.replace(/\%.*?\%|(\%)|\(.*?\)|\(|\)|\»|\«|\;|\.|\,\Z|\,$|br|&nbsp;|\“|\”|\•|\.$|\—/g, "")
-        //                 .replace(/\s\,/g, ",")
-        //                 .replace(/\s\;/g, ";")
-        //                 .replace(/\s\./g, ".")
-        //                 .replace(/\-|\s–\s|\s\s/g, " ")
-        //                 .replace(/\ё/g, "е");
-        //     console.log(" - " + text);
-            
-        //     var afqfb = findAnswerInQuestion(qfb, text);
-        //     if (afqfb===null)
-        //     {
-        //         continue;
-        //     }
-        //     if (afqfb)
-        //     {
-        //         label.innerHTML = "<span onmouseout=\"this.style = ''\" onMouseOver=\"this.style = 'color : green;'\";>" + label.innerHTML + "</span>";
-        //     }
-}
+    //console.log(answersPossible);
 
-function outAnswers() {
+    var wrapper = document.createElement('ul'); 
+
+    wrapper.className = 'select__list'; 
+    wrapper.addEventListener('mouseleave', function () {
+        this.style.display = "none";        
+    });  
+    
+    if (answersPossible.length == 0) {
+        var elem = document.createElement('li');
+
+        elem.className = 'select__item';
+        elem.innerHTML = 'Результатов не найдено';
+
+        wrapper.appendChild(elem);   
+
+        document.querySelector('.select__list').replaceWith(wrapper);
+
+        return false;
+    }
+
     for (var i = 0; i < answersPossible.length; i++) {
 
-        console.log("\nВопрос №" + (i + 1) + " ------------------------------------------------ \n");
+        var elem = document.createElement('li');
+    
+        elem.className = 'select__item';        
 
-        for (var j = 0; j < answersPossible[i].length; j++) {
+        text = answersPossible[i].text;        
 
-            if (j <= 2 ) {
-                var index = answersPossible[i][j].index;
+        for (var j = 0; j < words.length; j++) {
 
-                console.log("\t" + questionsBank[index].text.substring(0,200) + "...\n");
-                //console.log("\t" + questionsBank[index].text + "\n");
+            word = words[j];
 
-                for (var d = 0; d <  questionsBank[index].answers.length; d++) {
-                    if (questionsBank[index].answers[d][1] == true) {
-                        console.log("\t" + "\t" + "-- " + questionsBank[index].answers[d][0] + "\n");                     
-                    }                   
+            if (word.length < 4) {
+                if (word.search(/[^\A]/g) + 1) {
+                    word = word + " ";
+                } else if (word.search(/[$\Z]/g) + 1) {
+                    word = " " + word;
+                } else {
+                    word = " " + word + " ";
                 }
+            }
+
+            if (text.indexOf(word) + 1) {
+                maskString = new RegExp(word,'g');                
+                text = text.replace(maskString, '<span>' + word + '</span>');
+                //text = text.replace(word, '<span>' + word + '</span>');
+
             } else {
-                j = answersPossible[i].length;
-            }  
+                console.log(word);
+                console.log(text + "/n");
+                
+            }
 
-        } 
+        }
+
+        elem.innerHTML = (i + 1) + ". " + text;
+
+        var answers = document.createElement('ul');
+
+        answers.className = 'select__answers';
+
+        for (var j = 0; j < answersPossible[i].answers.length; j++) {
+            if (answersPossible[i].answers[j][1] == true) {
+                var answer = document.createElement('li');
+
+                answer.className = 'select__answer';
+                answer.innerHTML = answersPossible[i].answers[j][0];
+
+                answers.appendChild(answer); 
+            }
+        }
+        
+        elem.appendChild(answers); 
+        wrapper.appendChild(elem);   
+
+        if (i == 2) {
+            i = answersPossible.length;
+        }
+
     }
+
+    document.querySelector('.select__list').replaceWith(wrapper);
+}
+
+$input = document.querySelector('.gLFyf');
+
+
+$input.oninput = function () {
+    outAnswersInInput(this.value);
+};
+
+$input.onkeypress = function (e) {
+    if (e.key == "Enter") {
+        e.preventDefault();
+        outAnswersInInput(this.value);
+    }
+}
+
+document.querySelector('.logo__wrapper').addEventListener('click', function (e) {
+    e.preventDefault();
+    console.log('test');
     
-} 
-
-//console.log(questionsBank[1].answers.length);
-
-// for (var i = 0; i < questionsBank.length; i++) {
-//     //console.log(i + " -- " + questionsBank[i].text);
-    
-//     for (var j = 0; j < questionsBank[i].answers.length; j++) {   
-//         //console.log("\n\t" + j);
-            
-//         if (questionsBank[i].answers[j][0].indexOf('—') + 1) {
-//             console.log("\n" + questionsBank[i].text + "\n \t" + questionsBank[i].answers[j][0]);
-//         }                
-//     }    
-// }
-
-// for (var i = 0; i < questionsBank.length; i++) {
-//     //console.log(i + " -- " + questionsBank[i].text);
-    
-//     if (questionsBank[i].text.indexOf(/.$/g) + 1) {
-//         console.log(questionsBank[i].text + "\n");
-//     }    
-// }
-
-// for (var i = 0; i < questionsBank.length; i++) {
-//     //console.log(i + " -- " + questionsBank[i].text);
-//     //console.log(questionsBank[i].text.search(/.$/g));
-    
-//     if (questionsBank[i].text.search(/\«/g) != -1) {
-//         console.log(questionsBank[i].text + "\n");
-//     }    
-// }
-
-tips();
-
-outAnswers();
-
-//— ; , \ \s\\\s \\\s : — « »
+    window.open('http://ntb.tgn.sfedu.ru/UML/UML_5397.pdf',  "_blank");
+});

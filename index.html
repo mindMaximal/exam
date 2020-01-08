@@ -13,6 +13,78 @@
         
     <title>Google</title>
     <style>
+
+        .tsf {
+            position: relative;
+        }
+
+        .select__list {
+            position: absolute;
+            z-index: 10;
+            top: 70px;
+            overflow: hidden;
+            margin: 0;
+            width: 100%;
+            border-radius: 24px;
+            background-color: #fff;
+            transition: .2s;
+            border: 1px solid #dfe1e5;
+        }
+
+        .select__list:hover {
+            box-shadow: 0 1px 6px 0 rgba(32, 33, 36, 0.28);
+            border-color: #fbfbfb;
+        }
+
+        .select__item,
+        .select__list {
+            -webkit-transition: .3s;
+            transition: .3s
+        }
+
+        .select__answers {
+            padding: 15px 0 15px 40px;
+        }
+
+        .select__answer {
+            list-style-type: disc;
+        }
+
+        .select__item span {
+            color: #4285f4;
+        }
+
+        .select__item {
+            display: block;
+            border-bottom: 1px solid #f1f1f1;
+            padding: 15px 10px;
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 13px;
+            line-height: 15px;
+            transition: .2s
+        }
+
+        .select__item:hover {
+            background-color: #fbfbfb;
+        }
+
+        .select__item:last-of-type {
+            border-bottom: 1px solid transparent;
+            padding-bottom: 0;
+        }
+
+        .select__item:first-of-type {
+            padding-bottom: 15px;
+        }
+
+        .select__item:last-of-type .select__item:last-of-type {
+            padding-bottom: 0;
+        }
+
+    </style>
+    <style>
         @-webkit-keyframes gb__a {
             0% {
                 opacity: 0
@@ -4250,7 +4322,7 @@
                                     </style>
                                     <div class="hsuHs"><span class="wFncld z1asCe MZy1Rb"><svg focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path></svg></span></div>
                                 </div>
-                                <di class="a4bIc">
+                                <div class="a4bIc">
                                     <style>
                                         .gLFyf {
                                             background-color: transparent;
@@ -4288,7 +4360,7 @@
                                         }
                                     </style>
                                     <div class="vdLsw gsfi" jsname="vdLsw"></div>
-                                    <input class="gLFyf gsfi" maxlength="2048" name="q" type="text" jsaction="paste:puy29d" aria-autocomplete="both" aria-haspopup="false" autocapitalize="off" autocomplete="off" autocorrect="off" role="combobox" spellcheck="false" title="Поиск" value="" aria-label="Найти" data-ved="0ahUKEwjmq9icme_mAhWEAhAIHeJDCJAQ39UDCAQ">
+                                    <input class="gLFyf gsfi" name="q" type="text" autocomplete="off" title="Поиск">
                                 </div>
                                 <div class="dRYYxd">
                                     <style>
@@ -4345,7 +4417,7 @@
                                         }
                                         
                                         .HPVvwb {
-                                            background: url('//www.gstatic.com/images/branding/googlemic/2x/googlemic_color_24dp.png') 0 0 no-repeat;
+                                            
                                             height: 24px;
                                             width: 24px;
                                             background-size: 24px;
@@ -4366,6 +4438,7 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="select__list" style="display:none"></div>
                         <div class="UUbT9" style="display:none">
                             <style>
                                 .UUbT9 {
@@ -4448,7 +4521,6 @@
                                 }
                                 
                                 .sb27 {
-                                    background: url(/images/searchbox/desktop_searchbox_sprites302_hr.webp) no-repeat 0 -21px;
                                     background-size: 20px;
                                     min-height: 20px;
                                     min-width: 20px;
@@ -4457,7 +4529,7 @@
                                 }
                                 
                                 .sb43 {
-                                    background: url(/images/searchbox/desktop_searchbox_sprites302_hr.webp) no-repeat 0 0;
+                                
                                     background-size: 20px;
                                     min-height: 20px;
                                     min-width: 20px;
@@ -4470,8 +4542,8 @@
                                     margin: 0
                                 }
                             </style>
-                            <div class="RjPuVb" jsname="RjPuVb"></div>
-                            <div class="aajZCb" jsname="aajZCb">
+                            <div class="RjPuVb"></div>
+                            <div class="aajZCb">
                                 <div class="xtSCL"></div>
                                 <ul class="erkvQe" jsname="erkvQe" role="listbox"></ul>
                                 <style>
@@ -4670,7 +4742,7 @@
                                             height: 70px
                                         }
                                         
-                                        .tfB0Bf input[type="submit"] {
+                                        .tfB0Bf input[type="submit"]{
                                             background-image: -webkit-linear-gradient(top, #f5f5f5, #f1f1f1);
                                             background-color: #f2f2f2;
                                             border: 1px solid #f2f2f2;
@@ -4686,6 +4758,32 @@
                                             text-align: center;
                                             cursor: pointer;
                                             user-select: none
+                                        }
+
+                                        .tfB0Bf a {
+                                            background-image: -webkit-linear-gradient(top, #f5f5f5, #f1f1f1);
+                                            background-color: #f2f2f2;
+                                            border: 1px solid #f2f2f2;
+                                            border-radius: 4px;
+                                            color: #5F6368;
+                                            font-family: arial, sans-serif;
+                                            font-size: 14px;
+                                            margin: 11px 4px;
+                                            padding: 0 16px;
+                                            line-height: 27px;
+                                            padding: 9px 16px;
+                                            text-align: center;
+                                            cursor: pointer;
+                                            user-select: none
+                                        }
+
+                                        .tfB0Bf a:hover {
+                                            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+                                            background-image: -webkit-linear-gradient(top, #f8f8f8, #f1f1f1);
+                                            background-color: #f8f8f8;
+                                            border: 1px solid #c6c6c6;
+                                            color: #222;
+                                            text-decoration: none;
                                         }
                                         
                                         .tfB0Bf input[type="submit"]:hover {
@@ -4703,7 +4801,7 @@
                                     </style>
                                     <center>
                                         <input class="gNO89b" value="Поиск в Google" aria-label="Поиск в Google" name="btnK" type="submit" data-ved="0ahUKEwjmq9icme_mAhWEAhAIHeJDCJAQ4dUDCAY">
-                                        <input class="RNmpXc" value="Мне повезёт!" aria-label="Мне повезёт!" name="btnI" type="submit" jsaction="sf.lck" data-ved="0ahUKEwjmq9icme_mAhWEAhAIHeJDCJAQ19QECAc"> </center>
+                                        <input class="RNmpXc" value="Мне повезёт!" name="btnI" type="submit"> </center>
                                 </div>
                             </div>
                             <style>
@@ -4746,11 +4844,12 @@
                         </div>
                         <div class="FPdoLc tfB0Bf">
                             <center>
-                                <input class="gNO89b" value="Поиск в Google" aria-label="Поиск в Google" name="btnK" type="submit" data-ved="0ahUKEwjmq9icme_mAhWEAhAIHeJDCJAQ4dUDCAo">
-                                <input class="RNmpXc" value="Мне повезёт!" aria-label="Мне повезёт!" name="btnI" type="submit" jsaction="sf.lck" data-ved="0ahUKEwjmq9icme_mAhWEAhAIHeJDCJAQ19QECAs"> </center>
+                                <input class="gNO89b" value="Поиск в Google" aria-label="Поиск в Google" name="btnK" type="submit">
+                                <a target="_blank" href="https://vk.com/doc157142041_529087887?hash=3d42c2d3b453a6833f&dl=2f9bf8587cbb4beb0c" class="open">Мне повезёт!</a>
+                            </center>
                         </div>
                     </div>
-                    <div style="background:url(/images/searchbox/desktop_searchbox_sprites302_hr.webp)"> </div>
+                    <div> </div>
                 </div>
             </form>
         </div>
